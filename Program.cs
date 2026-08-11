@@ -71,32 +71,43 @@ do
             }
             while (pago != 1 && pago != 2 && pago != 3);
 
-            decimal totalFinal = 0;
+            decimal recargo = 0;
 
             switch (pago)
             {
                 case 1:
-                    totalFinal = totalConDescuento - (totalConDescuento * descuentoEfectivo);
-                    Console.WriteLine("Pago en efectivo: 10% de descuento.");
+                    descuento = descuento + (totalConDescuento * descuentoEfectivo);
                     break;
 
                 case 2:
-                    totalFinal = totalConDescuento;
-                    Console.WriteLine("Pago con débito: sin cambios.");
                     break;
 
                 case 3:
-                    totalFinal = totalConDescuento + (totalConDescuento * recargoCredito);
-                    Console.WriteLine("Pago con crédito: 15% de recargo.");
+                    recargo = totalConDescuento * recargoCredito;
                     break;
             }
 
+            decimal totalFinal = total - descuento + recargo;
+
+            string linea = "";
+
+            for (int i = 0; i < 30; i++)
+            {
+                linea = linea + "-";
+            }
+
             Console.WriteLine("");
-            Console.WriteLine("VENTA CERRADA");
+            Console.WriteLine(linea);
+            Console.WriteLine($"       {comercio}");
+            Console.WriteLine(linea);
+            Console.WriteLine($"Cajero: {cajero}");
             Console.WriteLine($"Productos: {cantidad}");
             Console.WriteLine($"Subtotal: {total}");
             Console.WriteLine($"Descuento: {descuento}");
-            Console.WriteLine($"Total a pagar: {totalFinal}");
+            Console.WriteLine($"Recargo: {recargo}");
+            Console.WriteLine(linea);
+            Console.WriteLine($"TOTAL: {totalFinal}");
+            Console.WriteLine(linea);
             break;
 
         default:
