@@ -1,15 +1,17 @@
-﻿const string nombreComercio = "KIOSCO EL RECREO";
+﻿const string comercio = "KIOSCO EL RECREO";
+const decimal descuento10 = 0.10m;
+const decimal descuento5 = 0.05m;
 
-Console.WriteLine("=== " + nombreComercio + " ===");
+Console.WriteLine("=== " + comercio + " ===");
 
-Console.Write("Nombre del cajero: ");
+Console.WriteLine("Nombre del cajero: ");
 string cajero = Console.ReadLine();
 
 Console.WriteLine($"Bienvenida, {cajero}. Caja abierta.");
 
 decimal total = 0;
 int cantidad = 0;
-int opcion;
+int opcion = 0;
 
 do
 {
@@ -22,27 +24,43 @@ do
     switch (opcion)
     {
         case 1:
-            Console.Write("Nombre del producto: ");
+            Console.WriteLine("Nombre del producto: ");
             string producto = Console.ReadLine();
 
-            Console.Write("Precio: ");
+            Console.WriteLine("Precio: ");
             decimal precio = Convert.ToDecimal(Console.ReadLine());
 
             total = total + precio;
             cantidad = cantidad + 1;
 
-            Console.WriteLine($"Producto cargado: {producto} - ${precio}");
+            Console.WriteLine($"Cargaste: {producto}");
             break;
 
         case 2:
+            decimal porcentaje = 0;
+
+            if (total > 50000)
+            {
+                porcentaje = descuento10;
+            }
+            else if (total > 20000)
+            {
+                porcentaje = descuento5;
+            }
+
+            decimal descuento = total * porcentaje;
+            decimal totalFinal = total - descuento;
+
             Console.WriteLine("");
-            Console.WriteLine("=== VENTA CERRADA ===");
-            Console.WriteLine($"Productos cargados: {cantidad}");
-            Console.WriteLine($"Total: ${total}");
+            Console.WriteLine("VENTA CERRADA");
+            Console.WriteLine($"Productos: {cantidad}");
+            Console.WriteLine($"Subtotal: {total}");
+            Console.WriteLine($"Descuento: {descuento}");
+            Console.WriteLine($"Total a pagar: {totalFinal}");
             break;
 
         default:
-            Console.WriteLine("Opción inválida. Intente de nuevo.");
+            Console.WriteLine("Esa opción no existe.");
             break;
     }
 }
